@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Othniel2TO - Dactylographie</title>
+<meta name="description" content="Apprenez à taper plus vite au clavier avec Othniel2TO">
+<meta name="theme-color" content="#6c63ff">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f5f5f5;
+  --fg:#1a1a1a;
+  --accent:#6c63ff;
+  --accent2:#4a90d9;
+  --success:#2ecc71;
+  --error:#e74c3c;
+  --card:#fff;
+  --card2:#f0f0f0;
+  --border:#e0e0e0;
+  --text2:#666;
+  --text3:#999;
+  --key-bg:#fff;
+  --key-border:#ccc;
+  --key-pressed:#6c63ff;
+  --text-bg:#fafafa;
+  --text-correct:#2ecc71;
+  --text-incorrect:#e74c3c;
+  --text-current:#f1c40f;
+  --text-future:#888;
+  --shadow:0 4px 24px rgba(0,0,0,.06);
+  --shadow-h:0 8px 32px rgba(0,0,0,.1);
+}
+.dark{
+  --bg:#1a1a2e;
+  --fg:#eaeaea;
+  --accent:#6c63ff;
+  --accent2:#4a90d9;
+  --success:#2ecc71;
+  --error:#e74c3c;
+  --card:#16213e;
+  --card2:#0f3460;
+  --border:#0f3460;
+  --text2:#aaa;
+  --text3:#7f8c8d;
+  --key-bg:#16213e;
+  --key-border:#0f3460;
+  --key-pressed:#6c63ff;
+  --text-bg:#0f3460;
+  --text-correct:#2ecc71;
+  --text-incorrect:#e74c3c;
+  --text-current:#f39c12;
+  --text-future:#7f8c8d;
+  --shadow:0 4px 24px rgba(0,0,0,.2);
+  --shadow-h:0 8px 32px rgba(0,0,0,.3);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--fg);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+.page{display:none;min-height:100vh;animation:fadeIn .3s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;font-weight:600;font-size:15px;cursor:pointer;border:none;text-decoration:none;transition:all .3s;font-family:'Inter',sans-serif}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(108,99,255,.3)}
+.btn-secondary{background:var(--card2);color:var(--fg)}
+.btn-secondary:hover{transform:translateY(-2px)}
+.btn-outline{border:2px solid var(--accent);color:var(--accent);background:transparent}
+.btn-outline:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
+.btn-sm{padding:8px 18px;font-size:13px}
+input,select,textarea{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:10px;font-size:15px;background:var(--card);color:var(--fg);font-family:'Inter',sans-serif;transition:all .3s;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.12)}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(--text2)}
+.form-group{margin-bottom:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:9999;background:var(--card);padding:0 5%;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.navbar .logo{display:flex;align-items:center;gap:8px;font-size:1.2rem;font-weight:800;color:var(--accent);text-decoration:none}
+.navbar .logo span{color:var(--accent2)}
+.navbar .nav-right{display:flex;align-items:center;gap:8px}
+.navbar .nav-link{background:none;border:none;color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;padding:8px 14px;border-radius:8px;transition:all .2s}
+.navbar .nav-link:hover{color:var(--accent);background:var(--card2)}
+.navbar .nav-link.primary{background:var(--accent);color:#fff;font-weight:600}
+.navbar .nav-link.primary:hover{background:#5a52d5}
+.icon{width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.icon svg{width:100%;height:100%;fill:currentColor}
+.icon-lg{width:32px;height:32px}
+.icon-xl{width:48px;height:48px}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 5% 40px;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,rgba(108,99,255,.1),transparent 60%),radial-gradient(circle at 70% 50%,rgba(74,144,217,.05),transparent 60%)}
+.hero h1{font-size:clamp(2rem,6vw,3.5rem);color:#fff;margin-bottom:6px;line-height:1.15}
+.hero h1 .hl{color:var(--accent)}
+.hero .subtitle{color:rgba(255,255,255,.7);font-size:clamp(1rem,2.5vw,1.2rem);margin-bottom:8px;font-weight:300}
+.hero p{color:rgba(255,255,255,.5);font-size:clamp(.9rem,1.8vw,1rem);max-width:600px;margin:0 auto 32px;line-height:1.8}
+.section{padding:64px 5%}
+.section-title{font-size:clamp(1.5rem,4vw,2rem);color:var(--accent);text-align:center;margin-bottom:6px;font-weight:800}
+.section-subtitle{color:var(--text2);text-align:center;margin-bottom:32px;font-size:14px}
+
+/* AUTH */
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 5% 40px;background:var(--bg)}
+.auth-box{background:var(--card);border-radius:20px;padding:40px;width:100%;max-width:450px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.auth-box h2{font-size:1.6rem;color:var(--accent);text-align:center;margin-bottom:4px}
+.auth-box .ab-sub{color:var(--text2);text-align:center;margin-bottom:24px;font-size:14px}
+.auth-tabs{display:flex;margin-bottom:24px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.auth-tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-size:14px;font-weight:500;transition:all .3s;background:transparent;color:var(--text2);border:none}
+.auth-tab.active{background:var(--accent);color:#fff}
+.auth-form{display:none;animation:fadeIn .3s}
+.auth-form.active{display:block}
+
+/* DASHBOARD */
+.dash-layout{display:flex;min-height:100vh}
+.dash-side{width:230px;background:var(--card);padding:0;border-right:1px solid var(--border);flex-shrink:0;display:flex;flex-direction:column}
+.dash-user{padding:20px;text-align:center;border-bottom:1px solid var(--border)}
+.dash-avatar{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;background:var(--accent);color:#fff;font-size:1.4rem;font-weight:700}
+.dash-name{font-size:14px;font-weight:700;color:var(--fg)}
+.dash-info{font-size:11px;color:var(--text3);margin-top:2px}
+.dash-menu{padding:12px;flex:1;list-style:none}
+.dash-menu li{margin:2px 0}
+.dash-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;transition:all .2s;cursor:pointer}
+.dash-menu a:hover{background:var(--card2);color:var(--fg)}
+.dash-menu a.active{background:rgba(108,99,255,.1);color:var(--accent);font-weight:600}
+.dash-menu a svg{width:18px;height:18px;fill:currentColor;flex-shrink:0}
+.dash-main{flex:1;padding:32px 5%;overflow-y:auto;background:var(--bg)}
+.dash-main h2{font-size:1.4rem;color:var(--accent);margin-bottom:4px}
+.dash-main .dm-sub{color:var(--text2);font-size:14px;margin-bottom:24px}
+
+/* TYPING */
+.typing-area{background:var(--card);border-radius:14px;padding:24px;margin-bottom:16px;border:1px solid var(--border);box-shadow:var(--shadow);min-height:120px;font-family:'JetBrains Mono',monospace;font-size:20px;line-height:1.8;letter-spacing:1px;position:relative}
+.typing-area .char{transition:color .1s}
+.typing-area .char.correct{color:var(--text-correct)}
+.typing-area .char.incorrect{color:var(--text-incorrect);background:rgba(231,76,60,.15);border-radius:2px}
+.typing-area .char.current{color:var(--text-current);text-decoration:underline;text-decoration-color:var(--text-current)}
+.typing-area .char.future{color:var(--text-future)}
+.typing-area .char.done{color:var(--text-correct)}
+.typing-area .cursor{display:inline-block;width:2px;height:24px;background:var(--accent);animation:blink 1s infinite;vertical-align:middle;margin-left:1px}
+
+/* VIRTUAL KEYBOARD */
+.vkeyboard{max-width:750px;margin:0 auto;padding:8px;user-select:none}
+.vkey-row{display:flex;justify-content:center;gap:4px;margin-bottom:4px}
+.vkey{display:flex;align-items:center;justify-content:center;height:44px;background:var(--key-bg);border:1px solid var(--key-border);border-radius:6px;font-size:12px;font-weight:500;color:var(--fg);transition:all .08s;cursor:default;min-width:38px;font-family:'Inter',sans-serif}
+.vkey.pressed{background:var(--key-pressed);color:#fff;transform:scale(.95);border-color:var(--key-pressed)}
+.vkey.special{min-width:56px;font-size:10px;color:var(--text3)}
+.vkey.space{min-width:220px}
+.vkey.wide{min-width:52px}
+
+/* STATS BAR */
+.stats-bar{display:flex;justify-content:center;gap:24px;padding:12px 20px;background:var(--card);border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:16px;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-item .si-val{font-size:1.5rem;font-weight:800;color:var(--accent)}
+.stat-item .si-lbl{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px}
+
+/* PROGRESS */
+.progress-wrap{height:6px;background:var(--card2);border-radius:4px;overflow:hidden;margin-bottom:16px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px;transition:width .3s ease;width:0%}
+
+/* GRID CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:20px}
+.card{background:var(--card);border-radius:14px;padding:20px;border:1px solid var(--border);box-shadow:var(--shadow);transition:all .3s;cursor:pointer}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-h)}
+.card .card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;background:rgba(108,99,255,.1)}
+.card .card-icon svg{width:22px;height:22px;fill:var(--accent)}
+.card h4{font-size:14px;color:var(--fg);margin-bottom:2px}
+.card .card-desc{font-size:12px;color:var(--text3);margin-top:4px}
+.card .card-badge{display:inline-block;padding:2px 10px;border-radius:10px;font-size:10px;font-weight:600;margin-top:8px}
+
+/* LESSONS */
+.lesson-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.lesson-item{background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--border);transition:all .3s;cursor:pointer}
+.lesson-item:hover{transform:translateY(-2px);box-shadow:var(--shadow-h)}
+.lesson-item.locked{opacity:.5;cursor:not-allowed}
+.lesson-item.locked:hover{transform:none}
+.lesson-item .li-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.lesson-item .li-head h4{font-size:14px;color:var(--fg)}
+.lesson-item .li-head .li-badge{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:600}
+.lesson-item .li-desc{font-size:12px;color:var(--text3)}
+.lesson-item .li-stats{font-size:11px;color:var(--text2);margin-top:6px;display:flex;gap:12px}
+
+/* RESULT */
+.result-box{max-width:500px;margin:0 auto;background:var(--card);border-radius:16px;padding:32px;border:1px solid var(--border);box-shadow:var(--shadow);text-align:center}
+.result-box .rb-grade{font-size:3rem;font-weight:800;color:var(--accent)}
+.result-box .rb-grade-label{font-size:14px;color:var(--text2);margin-bottom:16px}
+.result-box .rb-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.result-box .rb-stat{padding:12px;background:var(--card2);border-radius:10px}
+.result-box .rb-stat .rbs-val{font-size:1.3rem;font-weight:700;color:var(--accent)}
+.result-box .rb-stat .rbs-lbl{font-size:11px;color:var(--text3)}
+
+/* SETTINGS */
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--card);border-radius:10px;border:1px solid var(--border);margin-bottom:8px}
+.settings-row .sr-label{font-size:14px;color:var(--fg)}
+.settings-row .sr-desc{font-size:12px;color:var(--text3)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .dash-layout{flex-direction:column}
+  .dash-side{width:100%;border-right:none;border-bottom:1px solid var(--border)}
+  .dash-user{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 16px}
+  .dash-avatar{margin:0;width:40px;height:40px;font-size:1rem}
+  .dash-menu{display:flex;padding:8px 12px;overflow-x:auto;gap:4px}
+  .dash-menu li{margin:0;flex-shrink:0}
+  .dash-menu a{padding:8px 12px;font-size:12px;white-space:nowrap}
+  .dash-main{padding:20px 16px}
+  .form-row{grid-template-columns:1fr}
+  .section{padding:40px 5%}
+  .auth-box{padding:24px}
+  .vkey{height:36px;min-width:30px;font-size:10px}
+  .vkey.space{min-width:160px}
+  .vkey.special{min-width:44px}
+  .vkey.wide{min-width:42px}
+  .typing-area{font-size:16px;padding:16px}
+  .stats-bar{gap:12px}
+  .stat-item .si-val{font-size:1.2rem}
+}
+@media(max-width:480px){
+  .navbar{height:52px}
+  .hero{padding:60px 5% 30px}
+  .btn{padding:10px 20px;font-size:14px}
+  .vkey{height:32px;min-width:26px;font-size:9px}
+  .vkey.space{min-width:120px}
+  .vkey.special{min-width:36px}
+  .vkey.wide{min-width:36px}
+}
+.certificate{max-width:800px;margin:0 auto;background:#fff;border:4px solid var(--accent);border-radius:16px;padding:40px;text-align:center;position:relative;font-family:'Inter',sans-serif;color:#1a1a1a}
+.certificate.dark-cert{background:#1a1a2e;color:#eaeaea;border-color:#6c63ff}
+.certificate .cert-logo{font-size:2rem;font-weight:800;color:#6c63ff;margin-bottom:4px}
+.certificate .cert-title{font-size:1.6rem;font-weight:700;color:#1a1a1a;margin:8px 0;text-transform:uppercase;letter-spacing:2px}
+.certificate.dark-cert .cert-title{color:#eaeaea}
+.certificate .cert-subtitle{font-size:14px;color:#666;margin-bottom:20px}
+.certificate .cert-seal{width:80px;height:80px;border-radius:50%;background:#6c63ff;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#fff;font-size:2rem;font-weight:700}
+.certificate .cert-photo{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #6c63ff;margin:0 auto 12px;display:block;background:#f0f0f0}
+.certificate .cert-photo-placeholder{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;background:#f0f0f0;border:2px dashed #ccc;cursor:pointer;color:#999;font-size:12px}
+.certificate .cert-name{font-size:1.5rem;font-weight:700;color:#1a1a1a;margin:8px 0}
+.certificate.dark-cert .cert-name{color:#eaeaea}
+.certificate .cert-info{font-size:13px;color:#666;margin:4px 0}
+.certificate .cert-bar{height:3px;background:linear-gradient(90deg,#6c63ff,#4a90d9);margin:20px auto;max-width:300px;border-radius:2px}
+.certificate .cert-signatures{display:flex;justify-content:space-around;margin-top:24px;flex-wrap:wrap;gap:16px}
+.certificate .cert-signature{text-align:center;min-width:140px}
+.certificate .cert-signature .sig-line{width:140px;height:1px;background:#999;margin:0 auto 6px}
+.certificate .cert-signature .sig-name{font-size:13px;font-weight:600;color:#1a1a1a}
+.certificate.dark-cert .cert-signature .sig-name{color:#eaeaea}
+.certificate .cert-signature .sig-title{font-size:11px;color:#888}
+.certificate-wrap{max-width:800px;margin:0 auto;background:var(--card);border:2px solid var(--accent);border-radius:16px;padding:40px;position:relative;overflow:hidden}
+.certificate-wrap::before{content:'';position:absolute;inset:8px;border:2px solid var(--accent);border-radius:12px;pointer-events:none;opacity:.3}
+.certificate-wrap .cw-header{text-align:center;border-bottom:2px solid var(--accent);padding-bottom:16px;margin-bottom:20px}
+.certificate-wrap .cw-header h2{font-size:1.8rem;color:var(--accent);margin:0}
+.certificate-wrap .cw-header p{color:var(--text2);font-size:13px}
+.certificate-wrap .cw-body{display:flex;gap:24px;align-items:start}
+.certificate-wrap .cw-photo{width:120px;height:140px;border:2px dashed var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;background:var(--card2);cursor:pointer;position:relative}
+.certificate-wrap .cw-photo img{width:100%;height:100%;object-fit:cover}
+.certificate-wrap .cw-photo .placeholder{font-size:11px;color:var(--text3);text-align:center;padding:8px}
+.certificate-wrap .cw-photo input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.certificate-wrap .cw-info{flex:1}
+.certificate-wrap .cw-info .field{margin-bottom:10px}
+.certificate-wrap .cw-info .field label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px}
+.certificate-wrap .cw-info .field .val{font-size:15px;font-weight:600;color:var(--fg);padding:6px 0;border-bottom:1px solid var(--border)}
+.certificate-wrap .cw-footer{display:flex;justify-content:space-between;margin-top:24px;padding-top:16px;border-top:2px solid var(--accent)}
+.certificate-wrap .cw-footer .signature{text-align:center}
+.certificate-wrap .cw-footer .signature .sig-line{width:140px;height:1px;background:var(--border);margin:4px auto}
+.certificate-wrap .cw-footer .signature .sig-name{font-size:12px;font-weight:600;color:var(--fg)}
+.certificate-wrap .cw-footer .signature .sig-title{font-size:10px;color:var(--text3)}
+.d-none{display:none!important}
+.text-center{text-align:center}
+.mt-8{margin-top:8px}
+.mt-16{margin-top:16px}
+.mb-16{margin-bottom:16px}
+.flex{display:flex}
+.flex-wrap{flex-wrap:wrap}
+.gap-8{gap:8px}
+.items-center{align-items:center}
+</style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <a href="#" class="logo" onclick="showPage('home')">Othniel2<span>TO</span></a>
+  <div class="nav-right" id="navRight">
+    <button class="nav-link" onclick="showPage('auth')">Connexion</button>
+    <button class="nav-link primary" onclick="showPage('auth')">S'inscrire</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Othniel2<span class="hl">TO</span></h1>
+      <p class="subtitle">Deviens un expert du <strong>clavier</strong></p>
+      <p>Entraîne-toi avec des leçons progressives, suis ta progression et deviens plus rapide chaque jour.</p>
+      <div class="flex flex-wrap gap-8" style="justify-content:center">
+        <button class="btn btn-primary" onclick="showPage('auth')">Commencer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH -->
+<div class="page" id="page-auth">
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <h2>Othniel2TO</h2>
+      <p class="ab-sub">Connecte-toi ou crée un compte</p>
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuth('login',this)">Connexion</button>
+        <button class="auth-tab" onclick="switchAuth('register',this)">Inscription</button>
+      </div>
+      <form class="auth-form active" id="loginForm" onsubmit="loginUser(event)">
+        <div class="form-group"><label>Nom d'utilisateur</label><input type="text" id="loginUser" required placeholder="Ton pseudo"></div>
+        <div class="form-group"><label>Mot de passe</label><input type="password" id="loginPass" required placeholder="Mot de passe"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Se connecter</button>
+      </form>
+      <form class="auth-form" id="registerForm" onsubmit="registerUser(event)">
+        <div class="form-row">
+          <div class="form-group"><label>Nom</label><input type="text" id="regNom" placeholder="Ton nom"></div>
+          <div class="form-group"><label>Prénom</label><input type="text" id="regPrenom" placeholder="Ton prénom"></div>
+        </div>
+        <div class="form-group"><label>Email</label><input type="email" id="regEmail" placeholder="ton@email.com"></div>
+        <div class="form-group"><label>Nom d'utilisateur</label><input type="text" id="regUser" required placeholder="Au moins 3 caractères" minlength="3"></div>
+        <div class="form-group"><label>Mot de passe</label><input type="password" id="regPass" required placeholder="Au moins 4 caractères" minlength="4"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Créer mon compte</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="page" id="page-dashboard">
+  <div class="dash-layout">
+    <div class="dash-side">
+      <div class="dash-user">
+        <div class="dash-avatar" id="dashAvatar">O</div>
+        <div class="dash-name" id="dashName">...</div>
+        <div class="dash-info" id="dashInfo">Dactylographe</div>
+      </div>
+      <ul class="dash-menu" id="dashMenu">
+        <li><a onclick="showDash('home')" class="active" id="m-home"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Accueil</a></li>
+        <li><a onclick="showDash('typing')" id="m-typing"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg> Dactylo libre</a></li>
+        <li><a onclick="showDash('lessons')" id="m-lessons"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg> Leçons</a></li>
+        <li><a onclick="showDash('exam')" id="m-exam"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> Examen</a></li>
+        <li><a onclick="showDash('certificate')" id="m-certificate"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg> Attestation</a></li>
+        <li><a onclick="showDash('stats')" id="m-stats"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg> Statistiques</a></li>
+        <li><a onclick="showDash('settings')" id="m-settings"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg> Paramètres</a></li>
+        <li><a onclick="logoutUser()" style="color:var(--error)"><svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg> Déconnexion</a></li>
+      </ul>
+    </div>
+    <div class="dash-main" id="dashContent"></div>
+  </div>
+</div>
+
+<script>
+const LESSONS = [
+  {id:1,name:"Rangée de base",keys:"asdfjkl;",desc:"ASDF JKL; — la position de repos",diff:"debutant"},
+  {id:2,name:"Rangée supérieure",keys:"qwertyuiop",desc:"QWERT YUIOP — la rangée du haut",diff:"debutant"},
+  {id:3,name:"Rangée inférieure",keys:"zxcvbnm,.",desc:"ZXCVB NM,. — la rangée du bas",diff:"debutant"},
+  {id:4,name:"Mélange rangées 1",keys:"asdfqwerzxcv",desc:"Combinaison des trois rangées",diff:"debutant"},
+  {id:5,name:"Mots courts 1",keys:"",desc:"Mots de 2-3 lettres",diff:"debutant"},
+  {id:6,name:"Mots courts 2",keys:"",desc:"Mots de 4 lettres",diff:"debutant"},
+  {id:7,name:"Phrases simples",keys:"",desc:"Phrases courtes et simples",diff:"intermediaire"},
+  {id:8,name:"Mots fréquents",keys:"",desc:"Les mots les plus courants en français",diff:"intermediaire"},
+  {id:9,name:"Phrases complexes",keys:"",desc:"Phrases avec ponctuation",diff:"intermediaire"},
+  {id:10,name:"Chiffres",keys:"0123456789",desc:"Les chiffres et symboles",diff:"intermediaire"},
+  {id:11,name:"Majuscules",keys:"",desc:"Mots avec majuscules",diff:"intermediaire"},
+  {id:12,name:"Textes longs",keys:"",desc:"Paragraphes complets",diff:"avance"},
+  {id:13,name:"Code Python",keys:"",desc:"Syntaxe Python",diff:"avance"},
+  {id:14,name:"Vitesse",keys:"",desc:"Textes conçus pour la vitesse",diff:"avance"},
+  {id:15,name:"Maître",keys:"",desc:"Mélange ultime",diff:"avance"}
+];
+
+const EXAMS = [
+  {id:1,name:"Mots simples",desc:"Tapez des mots courts",diff:"intermediaire"},
+  {id:2,name:"Phrases courtes",desc:"Tapez des phrases simples",diff:"intermediaire"},
+  {id:3,name:"Ponctuation",desc:"Textes avec ponctuation",diff:"intermediaire"},
+  {id:4,name:"Chiffres et symboles",desc:"Inclut chiffres et symboles",diff:"avance"},
+  {id:5,name:"Texte avancé",desc:"Texte long et complexe",diff:"avance"}
+];
+
+const TEXTS = {
+  francais:{
+    debutant:[
+      "le chat dort sur le lit","la mer est belle aujourd hui","un jour de pluie en été",
+      "je bois un café chaud","tu as un joli chat","il fait beau ce matin",
+      "nous allons à la plage","elle lit un livre bleu","ils jouent dans le parc",
+      "le soleil brille dans le ciel"],
+    intermediaire:[
+      "L'informatique est une passion qui demande de la rigueur et de la patience.",
+      "Pour devenir rapide au clavier il faut pratiquer tous les jours sans exception.",
+      "Les développeurs passent des heures à écrire du code et à résoudre des problèmes.",
+      "La dactylographie est une compétence essentielle dans le monde numérique moderne.",
+      "Un bon programmeur sait qu'un code propre est plus important qu'un code rapide.",
+      "La persévérance est la clé du succès dans l'apprentissage de la programmation.",
+      "Chaque erreur est une opportunité d'apprendre et de s'améliorer continuellement."],
+    avance:[
+      "La cybersécurité est devenue un enjeu majeur pour toutes les entreprises souhaitant protéger leurs données sensibles contre les menaces croissantes.",
+      "L'intelligence artificielle révolutionne notre façon de concevoir les logiciels en automatisant des tâches complexes qui semblaient impossibles il y a encore dix ans.",
+      "Pour devenir un développeur accompli il faut maîtriser plusieurs langages de programmation et comprendre les principes fondamentaux de l'architecture logicielle."]
+  },
+  anglais:{
+    debutant:[
+      "the cat sleeps on the bed","the sea is beautiful today","a rainy day in summer",
+      "I drink a hot coffee","you have a nice cat","the weather is nice this morning",
+      "we go to the beach","she reads a blue book","they play in the park"],
+    intermediaire:[
+      "Computer science is a passion that requires rigor and patience.",
+      "To become fast on the keyboard you must practice every day without exception.",
+      "Developers spend hours writing code and solving complex problems.",
+      "Touch typing is an essential skill in the modern digital world.",
+      "A good programmer knows that clean code is more important than fast code.",
+      "Perseverance is the key to success in learning programming."],
+    avance:[
+      "Cybersecurity has become a major challenge for all companies wishing to protect their sensitive data against growing threats.",
+      "Artificial intelligence is revolutionizing the way we design software by automating complex tasks.",]
+  },
+  code:{
+    debutant:["def hello(): print('Hello World')","x = 5 + 3 * 2","if x > 10: return True","for i in range(10): print(i)","name = input('Enter name: ')","while True: break"],
+    intermediaire:["def fibonacci(n): return n if n <= 1 else fibonacci(n-1) + fibonacci(n-2)","class User: def __init__(self, name): self.name = name","lambda function: double = lambda x: x * 2","list comprehension: squares = [x**2 for x in range(10)]"],
+    avance:["def decorator(func): def wrapper(*args, **kwargs): print('before'); result = func(*args, **kwargs); print('after'); return result; return wrapper","class Singleton: _instance = None; def __new__(cls): if cls._instance is None: cls._instance = super().__new__(cls); return cls._instance"]
+  }
+};
+
+function getRandomText(lang,diff){
+  const t=TEXTS[lang]&&TEXTS[lang][diff]?TEXTS[lang][diff]:TEXTS.francais.debutant;
+  return t[Math.floor(Math.random()*t.length)]
+}
+
+function generateLessonText(lesson){
+  const keys=lesson.keys;if(!keys)return getRandomText("francais",lesson.diff);
+  const words=[];for(let i=0;i<6;i++){let w="";const l=2+Math.floor(Math.random()*4);for(let j=0;j<l;j++)w+=keys[Math.floor(Math.random()*keys.length)];words.push(w)}
+  return words.join(" ")
+}
+
+// STATE
+let currentUser=null;
+let typingEngine=null;
+let currentLessonId=null;
+let currentExamId=null;
+let deferredPrompt=null;
+
+// PAGES
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('page-'+id);if(!el)return;
+  el.classList.add('active');window.scrollTo(0,0)
+}
+
+function switchAuth(tab,btn){
+  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.auth-form').forEach(f=>f.classList.remove('active'));
+  document.getElementById(tab==='login'?'loginForm':'registerForm').classList.add('active')
+}
+
+// AUTH
+function registerUser(e){
+  e.preventDefault();
+  const user=document.getElementById('regUser').value.trim(),pass=document.getElementById('regPass').value;
+  const nom=document.getElementById('regNom').value.trim();
+  const prenom=document.getElementById('regPrenom').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  if(user.length<3||pass.length<4){alert("Pseudo (3+) et mot de passe (4+) requis");return}
+  const users=JSON.parse(localStorage.getItem('oth_users')||'[]');
+  if(users.find(u=>u.username===user)){alert("Ce nom existe déjà");return}
+  const display=prenom&&nom?prenom+' '+nom:user;
+  const newUser={id:Date.now(),username:user,password:pass,nom:nom,prenom:prenom,email:email,displayName:display,theme:'',language:'francais',keyboardLayout:'azerty',createdAt:new Date().toISOString()};
+  users.push(newUser);
+  localStorage.setItem('oth_users',JSON.stringify(users));
+  localStorage.setItem('oth_session',newUser.id);
+  localStorage.setItem('oth_progress_'+newUser.id,JSON.stringify({lessons:{1:{unlocked:true}},examPassed:false,examProgress:{}}));
+  currentUser=newUser;
+  enterDashboard(newUser)
+}
+
+function loginUser(e){
+  e.preventDefault();
+  const user=document.getElementById('loginUser').value.trim(),pass=document.getElementById('loginPass').value;
+  const users=JSON.parse(localStorage.getItem('oth_users')||'[]');
+  const u=users.find(x=>x.username===user&&x.password===pass);
+  if(!u){alert("Nom ou mot de passe incorrect");return}
+  currentUser=u;localStorage.setItem('oth_session',u.id);
+  enterDashboard(u)
+}
+
+function enterDashboard(user){
+  showPage('dashboard');
+  document.getElementById('navbar').style.display='none';
+  document.getElementById('dashAvatar').textContent=(user.displayName||user.username)[0].toUpperCase();
+  document.getElementById('dashName').textContent=user.displayName||user.username;
+  const grade=getGrade(getAvgWpm(user.id));
+  document.getElementById('dashInfo').textContent=grade+' | '+(user.language||'francais');
+  showDash('home')
+}
+
+function logoutUser(){
+  currentUser=null;localStorage.removeItem('oth_session');
+  document.getElementById('navbar').style.display='flex';
+  typingEngine=null;showPage('home')
+}
+
+(function(){const s=localStorage.getItem('oth_session');if(s){const users=JSON.parse(localStorage.getItem('oth_users')||'[]');const u=users.find(x=>x.id==s);if(u){currentUser=u;enterDashboard(u)}}})();
+
+function getGrade(wpm){
+  if(wpm>=90)return"Légende";if(wpm>=75)return"Expert";if(wpm>=60)return"Avancé";
+  if(wpm>=45)return"Intermédiaire";if(wpm>=30)return"Débutant";return"Débutant"
+}
+
+function getProgress(userId){
+  try{return JSON.parse(localStorage.getItem('oth_progress_'+userId)||'{}')}catch(e){return{lessons:{},examPassed:false,examProgress:{}}}
+}
+
+function saveProgress(userId,data){
+  localStorage.setItem('oth_progress_'+userId,JSON.stringify(data))
+}
+
+function getSessions(userId){
+  try{return JSON.parse(localStorage.getItem('oth_sessions_'+userId)||'[]')}catch(e){return[]}
+}
+
+function addSession(userId,session){
+  const sessions=getSessions(userId);sessions.unshift(session);
+  if(sessions.length>200)sessions.pop();
+  localStorage.setItem('oth_sessions_'+userId,JSON.stringify(sessions))
+}
+
+function getAvgWpm(userId){
+  const s=getSessions(userId);if(!s.length)return 0;
+  return Math.round(s.reduce((a,b)=>a+(b.wpm||0),0)/s.length*10)/10
+}
+
+function getAvgAcc(userId){
+  const s=getSessions(userId);if(!s.length)return 0;
+  return Math.round(s.reduce((a,b)=>a+(b.accuracy||0),0)/s.length*10)/10
+}
+
+function getBestWpm(userId){
+  const s=getSessions(userId);if(!s.length)return 0;
+  return Math.round(Math.max(...s.map(x=>x.wpm||0))*10)/10
+}
+
+function getTotalTime(userId){
+  const s=getSessions(userId);return Math.round(s.reduce((a,b)=>a+(b.elapsed||0),0))
+}
+
+// DASHBOARD
+function showDash(section){
+  document.querySelectorAll('.dash-menu a').forEach(a=>a.classList.remove('active'));
+  const el=document.getElementById('m-'+section);if(el)el.classList.add('active');
+  renderDash(section)
+}
+
+function renderDash(section){
+  const c=document.getElementById('dashContent'),u=currentUser;if(!u)return;
+  const fns={home:dashHome,typing:dashTyping,lessons:dashLessons,exam:dashExam,stats:dashStats,settings:dashSettings,certificate:dashCertificate};
+  if(fns[section])fns[section](c,u)
+}
+
+function dashHome(c,u){
+  const s=getSessions(u.id);const avg=getAvgWpm(u.id);const best=getBestWpm(u.id);const grade=getGrade(avg);
+  const total=getTotalTime(u.id);const prog=getProgress(u.id);
+  const lm=Object.values(prog.lessons||{}).filter(l=>l.completed).length||0;
+  c.innerHTML=`<h2>Tableau de bord</h2><p class="dm-sub">Bienvenue, ${u.displayName||u.username} !</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:20px">
+      <div class="stat-item" style="background:var(--card);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--border)"><div class="si-val">${avg}</div><div class="si-lbl">WPM Moyen</div></div>
+      <div class="stat-item" style="background:var(--card);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--border)"><div class="si-val">${best}</div><div class="si-lbl">Meilleur WPM</div></div>
+      <div class="stat-item" style="background:var(--card);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--border)"><div class="si-val">${s.length}</div><div class="si-lbl">Sessions</div></div>
+      <div class="stat-item" style="background:var(--card);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--border)"><div class="si-val">${Math.floor(total/60)}min</div><div class="si-lbl">Temps total</div></div>
+      <div class="stat-item" style="background:var(--card);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--border)"><div class="si-val">${lm}/15</div><div class="si-lbl">Leçons</div></div>
+      <div class="stat-item" style="background:var(--card);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--border)"><div style="font-size:1.5rem;font-weight:800;color:var(--accent)">${grade}</div><div class="si-lbl">Grade</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+      <div class="card" onclick="showDash('typing')"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></div><h4>Dactylo libre</h4><p class="card-desc">Entraîne-toi en mode libre</p></div>
+      <div class="card" onclick="showDash('lessons')"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><h4>Leçons</h4><p class="card-desc">15 leçons progressives</p></div>
+      <div class="card" onclick="showDash('stats')"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div><h4>Statistiques</h4><p class="card-desc">Suis ta progression</p></div>
+    </div>`
+}
+
+function dashTyping(c,u){
+  const lang=currentUser&&currentUser.language?currentUser.language:'francais';
+  const diff=document.getElementById('typingDiff')?document.getElementById('typingDiff').value:'debutant';
+  const text=getRandomText(lang,diff);
+  typingEngine=null;
+  c.innerHTML=`<h2>Dactylo libre</h2><p class="dm-sub">Tape le texte ci-dessous</p>
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-item"><div class="si-val" id="stwpm">0</div><div class="si-lbl">WPM</div></div>
+      <div class="stat-item"><div class="si-val" id="stacc">100%</div><div class="si-lbl">Précision</div></div>
+      <div class="stat-item"><div class="si-val" id="sttime">0s</div><div class="si-lbl">Temps</div></div>
+      <div class="stat-item"><div class="si-val" id="sterr">0</div><div class="si-lbl">Erreurs</div></div>
+    </div>
+    <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <select id="typingLang" style="width:auto;flex:1;min-width:120px">
+        <option value="francais"${lang==='francais'?' selected':''}>Français</option>
+        <option value="anglais"${lang==='anglais'?' selected':''}>English</option>
+        <option value="code"${lang==='code'?' selected':''}>Code</option>
+      </select>
+      <select id="typingDiff" style="width:auto;flex:1;min-width:120px">
+        <option value="debutant">Débutant</option>
+        <option value="intermediaire">Intermédiaire</option>
+        <option value="avance">Avancé</option>
+      </select>
+      <button class="btn btn-secondary btn-sm" onclick="refreshText()">Nouveau texte</button>
+    </div>
+    <div class="typing-area" id="typingArea" onclick="focusTyping()" tabindex="0"></div>
+    <div class="vkeyboard" id="vkeyboard"></div>
+    <p style="text-align:center;font-size:12px;color:var(--text3);margin-top:8px">Clique sur la zone de texte puis tape pour commencer</p>`;
+  renderKeyboard();
+  initTyping(text,c)
+}
+
+function refreshText(){
+  const lang=document.getElementById('typingLang').value;
+  const diff=document.getElementById('typingDiff').value;
+  const text=getRandomText(lang,diff);
+  initTyping(text,document.getElementById('dashContent'))
+}
+
+function initTyping(text,container){
+  typingEngine={text:text,pos:0,typed:0,correct:0,errors:0,keystrokes:0,startTime:null,isRunning:false,finished:false,history:[]};
+  const area=document.getElementById('typingArea');if(!area)return;
+  let h='';for(let i=0;i<text.length;i++){const c=text[i];h+=`<span class="char ${i===0?'current':'future'}" data-i="${i}">${c===' '?'\u00A0':c}</span>`}
+  area.innerHTML=h+'<span class="cursor"></span>';
+  document.getElementById('progressFill').style.width='0%';
+  focusTyping()
+}
+
+function focusTyping(){const a=document.getElementById('typingArea');if(a)a.focus()}
+
+document.addEventListener('keydown',function(e){
+  if(!typingEngine||typingEngine.finished||!document.getElementById('typingArea'))return;
+  const area=document.getElementById('typingArea');
+  if(!area||!area.closest('.page.active')||!area.closest('#dashContent'))return;
+  if(e.key==='Backspace'||e.key==='Delete'||e.key==='Tab'||e.key==='Escape')return;
+  if(e.ctrlKey||e.altKey||e.metaKey)return;
+  e.preventDefault();
+  const eng=typingEngine;
+  if(!eng.startTime){eng.startTime=Date.now();eng.isRunning=true}
+  if(eng.pos>=eng.text.length)return;
+  const char=e.key;eng.keystrokes++;
+  const expected=eng.text[eng.pos];
+  const correct=char===expected;
+  if(correct)eng.correct++;else eng.errors++;
+  eng.typed++;
+  const chars=area.querySelectorAll('.char');
+  if(chars[eng.pos]){chars[eng.pos].className='char '+(correct?'correct':'incorrect')}
+  eng.pos++;
+  if(eng.pos<chars.length){chars[eng.pos].className='char current'}
+  eng.history.push({pos:eng.pos-1,expected,typed:char,correct,wpm:calcWpm(eng),accuracy:calcAcc(eng)});
+  const cursor=area.querySelector('.cursor');
+  if(eng.pos<chars.length){area.appendChild(cursor)}
+  const pct=Math.round((eng.pos/eng.text.length)*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('stwpm').textContent=calcWpm(eng);
+  document.getElementById('stacc').textContent=calcAcc(eng)+'%';
+  document.getElementById('sttime').textContent=Math.floor((Date.now()-eng.startTime)/1000)+'s';
+  document.getElementById('sterr').textContent=eng.errors;
+  const k=document.querySelector('.vkey[data-key="'+char.toLowerCase()+'"]');
+  if(k){k.classList.add('pressed');setTimeout(()=>k.classList.remove('pressed'),120)}
+  if(eng.pos>=eng.text.length){finishTyping(eng)}
+});
+
+function calcWpm(eng){
+  if(!eng.startTime||!eng.isRunning)return 0;
+  const elapsed=(Date.now()-eng.startTime)/60000;
+  if(elapsed<=0)return 0;
+  return Math.round((eng.correct/5)/elapsed)
+}
+
+function calcAcc(eng){
+  if(eng.keystrokes<=0)return 100;
+  return Math.round((eng.correct/eng.keystrokes)*100)
+}
+
+function finishTyping(eng){
+  eng.finished=true;eng.isRunning=false;
+  const wpm=calcWpm(eng);const acc=calcAcc(eng);
+  const elapsed=Math.round((Date.now()-eng.startTime)/1000);
+  const elapsedMin=elapsed/60;
+  const grade=getGrade(wpm);
+  const results={wpm,accuracy:acc,elapsed,errors:eng.errors,typed:eng.typed,correct:eng.correct,keystrokes:eng.keystrokes,targetLength:eng.text.length,grade:grade};
+  if(currentUser){addSession(currentUser.id,{...results,date:new Date().toISOString(),mode:'libre'})}
+  if(currentLessonId){
+    const prog=getProgress(currentUser.id);
+    if(!prog.lessons)prog.lessons={};
+    if(!prog.lessons[currentLessonId])prog.lessons[currentLessonId]={};
+    const prev=prog.lessons[currentLessonId];
+    if(!prev.completed||(prev.bestWpm||0)<wpm||(prev.bestAcc||0)<acc){
+      prog.lessons[currentLessonId]={completed:true,bestWpm:Math.max(prev.bestWpm||0,wpm),bestAcc:Math.max(prev.bestAcc||0,acc),unlocked:true};
+      const nextId=currentLessonId+1;
+      if(nextId<=15&&!prog.lessons[nextId])prog.lessons[nextId]={unlocked:true,completed:false,bestWpm:0,bestAcc:0};
+    }
+    saveProgress(currentUser.id,prog);
+    currentLessonId=null
+  }
+  if(currentExamId){
+    const prog=getProgress(currentUser.id);
+    if(!prog.examProgress)prog.examProgress={};
+    if(acc>=80){
+      if(!prog.examProgress[currentExamId]||(prog.examProgress[currentExamId].bestWpm||0)<wpm)
+        prog.examProgress[currentExamId]={completed:true,bestWpm:wpm,bestAcc:acc};
+      const nextId=currentExamId+1;
+      if(nextId<=5&&!prog.examProgress[nextId])prog.examProgress[nextId]={unlocked:true};
+    }
+    if(Object.keys(prog.examProgress).filter(k=>prog.examProgress[k].completed).length>=5)prog.examPassed=true;
+    saveProgress(currentUser.id,prog);
+    currentExamId=null
+  }
+  showResults(results)
+}
+
+function showResults(r){
+  const c=document.getElementById('dashContent');
+  c.innerHTML=`<h2>Résultats</h2><p class="dm-sub">Session terminée !</p>
+    <div class="result-box">
+      <div class="rb-grade">${r.wpm}</div><div class="rb-grade-label">WPM — ${r.grade}</div>
+      <div class="rb-stats">
+        <div class="rb-stat"><div class="rbs-val">${r.accuracy}%</div><div class="rbs-lbl">Précision</div></div>
+        <div class="rb-stat"><div class="rbs-val">${r.errors}</div><div class="rbs-lbl">Erreurs</div></div>
+        <div class="rb-stat"><div class="rbs-val">${r.typed}</div><div class="rbs-lbl">Caractères</div></div>
+        <div class="rb-stat"><div class="rbs-val">${r.correct}</div><div class="rbs-lbl">Corrects</div></div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+        <button class="btn btn-primary" onclick="showDash('typing')">Recommencer</button>
+        <button class="btn btn-secondary" onclick="showDash('home')">Accueil</button>
+      </div>
+    </div>`
+}
+
+// VIRTUAL KEYBOARD
+const KEYBOARD_ROWS=[
+  ['a','z','e','r','t','y','u','i','o','p','^','$'],
+  ['q','s','d','f','g','h','j','k','l','m','ù','*'],
+  ['>','w','x','c','v','b','n',',',';',':','!'],
+  [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+];
+
+function renderKeyboard(){
+  const kb=document.getElementById('vkeyboard');if(!kb)return;
+  let h='';
+  KEYBOARD_ROWS.forEach((row,i)=>{
+    h+='<div class="vkey-row">';
+    if(i===3)h+=`<div class="vkey special" style="min-width:56px">Ctrl</div>`;
+    row.forEach(k=>{
+      if(k===' '){h+=`<div class="vkey space" data-key=" "></div>`;return}
+      if(k==='>'||k==='<'){h+=`<div class="vkey special" style="min-width:44px">${k==='>'?'Shift':k==='<'?'Ver':' '}</div>`;return}
+      h+=`<div class="vkey" data-key="${k}">${k}</div>`
+    });
+    if(i===3)h+=`<div class="vkey special" style="min-width:56px">Alt</div>`;
+    h+='</div>'
+  });
+  kb.innerHTML=h
+}
+
+// LESSONS
+function dashLessons(c,u){
+  const prog=getProgress(u.id);
+  let h=`<h2>Leçons</h2><p class="dm-sub">15 leçons progressives pour maîtriser le clavier</p><div class="lesson-list">`;
+  LESSONS.forEach(l=>{
+    const data=prog.lessons&&prog.lessons[l.id];
+    const unlocked=!data||data.unlocked;
+    const completed=data&&data.completed;
+    const locked=!unlocked;
+    const bwpm=data&&data.bestWpm?data.bestWpm:0;
+    const bacc=data&&data.bestAcc?data.bestAcc:0;
+    const badge=l.diff==='debutant'?'var(--success)':l.diff==='intermediaire'?'var(--accent)':'var(--error)';
+    h+=`<div class="lesson-item${locked?' locked':''}" onclick="${locked?'':"startLesson("+l.id+")"}">
+      <div class="li-head"><h4>${l.id}. ${l.name}</h4><span class="li-badge" style="background:${badge}15;color:${badge}">${l.diff}</span></div>
+      <div class="li-desc">${l.desc}</div>
+      <div class="li-stats">${completed?'✅ Complétée':'📝 '+(unlocked?'Prête':'🔒 Verrouillée')} ${bwpm?'| '+bwpm+' WPM':''} ${bacc?'| '+bacc+'%':''}</div>
+    </div>`
+  });
+  h+='</div>';c.innerHTML=h
+}
+
+function startLesson(id){
+  const lesson=LESSONS.find(l=>l.id===id);if(!lesson)return;
+  currentLessonId=id;currentExamId=null;
+  const text=generateLessonText(lesson);
+  const c=document.getElementById('dashContent');
+  c.innerHTML=`<h2>Leçon ${id} : ${lesson.name}</h2><p class="dm-sub">${lesson.desc}</p>
+    <div class="stats-bar">
+      <div class="stat-item"><div class="si-val" id="stwpm">0</div><div class="si-lbl">WPM</div></div>
+      <div class="stat-item"><div class="si-val" id="stacc">100%</div><div class="si-lbl">Précision</div></div>
+      <div class="stat-item"><div class="si-val" id="sttime">0s</div><div class="si-lbl">Temps</div></div>
+      <div class="stat-item"><div class="si-val" id="sterr">0</div><div class="si-lbl">Erreurs</div></div>
+    </div>
+    <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="typing-area" id="typingArea" onclick="focusTyping()" tabindex="0"></div>
+    <div class="vkeyboard" id="vkeyboard"></div>`;
+  renderKeyboard();
+  initTyping(text,c)
+}
+
+// EXAM
+function dashExam(c,u){
+  const prog=getProgress(u.id);
+  const passed=prog.examPassed;
+  let h=`<h2>Examen de dactylographie</h2><p class="dm-sub">${passed?'✅ Félicitations ! Tu as réussi l\'examen !':'5 exercices à valider (80% de précision requis)'}</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">`;
+  EXAMS.forEach(ex=>{
+    const data=prog.examProgress&&prog.examProgress[ex.id];
+    const completed=data&&data.completed;
+    const unlock=data&&(data.unlocked||ex.id===1)||ex.id===1;
+    h+=`<div class="card${!unlock?' locked':''}" onclick="${unlock?`startExam(${ex.id})`:''}" style="${!unlock?'opacity:.5;cursor:not-allowed':''}">
+      <div class="card-icon" style="background:rgba(108,99,255,.1)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+      <h4>${ex.id}. ${ex.name}</h4><p class="card-desc">${ex.desc}</p>
+      <div class="card-badge" style="background:${completed?'rgba(46,204,113,.15)':'rgba(108,99,255,.1)'};color:${completed?'var(--success)':'var(--accent)'}">${completed?'✅ Réussi':'⏳ '+(unlock?'Prêt':'🔒')}</div>
+      ${data&&data.bestWpm?`<div style="font-size:11px;color:var(--text3);margin-top:4px">Meilleur: ${data.bestWpm} WPM | ${data.bestAcc}%</div>`:''}
+    </div>`
+  });
+  h+='</div>';c.innerHTML=h
+}
+
+function startExam(id){
+  const ex=EXAMS.find(e=>e.id===id);if(!ex)return;
+  currentExamId=id;currentLessonId=null;
+  const text=getRandomText(currentUser&&currentUser.language?currentUser.language:'francais',ex.diff);
+  const c=document.getElementById('dashContent');
+  c.innerHTML=`<h2>Examen ${id} : ${ex.name}</h2><p class="dm-sub">${ex.desc} — 80% de précision requis</p>
+    <div class="stats-bar">
+      <div class="stat-item"><div class="si-val" id="stwpm">0</div><div class="si-lbl">WPM</div></div>
+      <div class="stat-item"><div class="si-val" id="stacc">100%</div><div class="si-lbl">Précision</div></div>
+      <div class="stat-item"><div class="si-val" id="sttime">0s</div><div class="si-lbl">Temps</div></div>
+      <div class="stat-item"><div class="si-val" id="sterr">0</div><div class="si-lbl">Erreurs</div></div>
+    </div>
+    <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="typing-area" id="typingArea" onclick="focusTyping()" tabindex="0"></div>
+    <div class="vkeyboard" id="vkeyboard"></div>`;
+  renderKeyboard();
+  initTyping(text,c)
+}
+
+// CERTIFICATE
+function dashCertificate(c,u){
+  const prog=getProgress(u.id);
+  if(!prog.examPassed){c.innerHTML=`<h2>Attestation</h2><p class="dm-sub">Termine les 5 épreuves d'examen pour obtenir ton attestation</p><div style="text-align:center;padding:40px;color:var(--text3)"><p style="font-size:2rem;margin-bottom:12px">📜</p><p>Tu dois réussir les 5 exercices de l'examen avec au moins 80% de précision.</p><button class="btn btn-primary mt-16" onclick="showDash('exam')">Aller à l'examen</button></div>`;return}
+  c.innerHTML=`<h2>Attestation de réussite</h2><p class="dm-sub">Félicitations ! Tu as réussi l'examen de dactylographie</p>
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="saveCertificate()">💾 Enregistrer l'attestation</button>
+      <button class="btn btn-secondary" onclick="resetCertPhoto()">Réinitialiser la photo</button>
+    </div>
+    <div id="certContainer" class="certificate-wrap">
+      <div class="cw-header">
+        <h2>CodeLux</h2>
+        <p>Attestation de réussite en dactylographie</p>
+        <div style="width:60px;height:3px;background:var(--accent);margin:8px auto;border-radius:2px"></div>
+      </div>
+      <div class="cw-body">
+        <div class="cw-photo" id="certPhotoArea">
+          <img id="certPhotoImg" style="display:none" alt="Photo">
+          <div class="placeholder" id="certPhotoPlaceholder">
+            <svg width="32" height="32" fill="#999" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <span>Ajouter une photo</span>
+          </div>
+          <input type="file" accept="image/*" id="certPhotoInput" onchange="handleCertPhoto(event)">
+        </div>
+        <div class="cw-info">
+          <div class="field"><label>Nom & Prénom</label><div class="val" id="certDisplayName">${u.displayName||u.username}</div></div>
+          <div class="field"><label>Email</label><div class="val" id="certDisplayEmail">${u.email||u.username+'@email.com'}</div></div>
+          <div class="field"><label>Date d'obtention</label><div class="val">${new Date().toLocaleDateString('fr-FR')}</div></div>
+          <div class="field"><label>Grade</label><div class="val">${getGrade(getAvgWpm(u.id))} — ${getAvgWpm(u.id)} WPM</div></div>
+        </div>
+      </div>
+      <div class="cw-footer">
+        <div class="signature">
+          <div class="sig-line"></div>
+          <div class="sig-name">Othniel T.</div>
+          <div class="sig-title">Fondateur - CodeLux</div>
+        </div>
+        <div class="signature">
+          <div class="sig-line"></div>
+          <div class="sig-name">Anège-Aurel A.</div>
+          <div class="sig-title">Co-fondateur - CodeLux</div>
+        </div>
+      </div>
+    </div>`;
+  const saved=localStorage.getItem('oth_cert_photo_'+u.id);
+  if(saved){document.getElementById('certPhotoImg').src=saved;document.getElementById('certPhotoImg').style.display='block';document.getElementById('certPhotoPlaceholder').style.display='none'}
+}
+
+function handleCertPhoto(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    const data=ev.target.result;
+    document.getElementById('certPhotoImg').src=data;
+    document.getElementById('certPhotoImg').style.display='block';
+    document.getElementById('certPhotoPlaceholder').style.display='none';
+    if(currentUser)localStorage.setItem('oth_cert_photo_'+currentUser.id,data)
+  };
+  reader.readAsDataURL(file)
+}
+
+function resetCertPhoto(){
+  if(currentUser)localStorage.removeItem('oth_cert_photo_'+currentUser.id);
+  const img=document.getElementById('certPhotoImg');if(img){img.style.display='none'}
+  const ph=document.getElementById('certPhotoPlaceholder');if(ph)ph.style.display='flex';
+  const inp=document.getElementById('certPhotoInput');if(inp)inp.value=''
+}
+
+function saveCertificate(){
+  const container=document.getElementById('certContainer');
+  if(!container)return;
+  const name=(document.getElementById('certDisplayName')||{}).textContent||'Etudiant';
+  const email=(document.getElementById('certDisplayEmail')||{}).textContent||'';
+  const clone=container.cloneNode(true);
+  clone.style.position='fixed';clone.style.top='-9999px';clone.style.left='-9999px';
+  clone.style.width='800px';clone.style.zIndex='-1';
+  document.body.appendChild(clone);
+  const btn=clone.querySelector('.btn');if(btn)btn.style.display='none';
+  const fileInp=clone.querySelector('input[type="file"]');if(fileInp)fileInp.style.display='none';
+  const ph=clone.querySelector('.placeholder');if(ph)ph.style.display='none';
+  const img=clone.querySelector('img');
+  if(img&&!img.src){img.style.display='none'}
+  html2canvas(clone,{scale:2,useCORS:true,backgroundColor:'#fff',allowTaint:false}).then(canvas=>{
+    const link=document.createElement('a');
+    link.download='Attestation_CodeLux_'+name.replace(/\s/g,'_')+'.png';
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+    document.body.removeChild(clone)
+  }).catch(()=>{
+    document.body.removeChild(clone);
+    alert("Erreur lors de la génération. Essaie avec un navigateur récent.")
+  })
+}
+
+// STATS
+function dashStats(c,u){
+  const s=getSessions(u.id);
+  const avg=getAvgWpm(u.id);const best=getBestWpm(u.id);
+  const avgAcc=getAvgAcc(u.id);
+  const total=getTotalTime(u.id);
+  let historyH='';
+  if(s.length===0){
+    historyH='<p style="color:var(--text3);text-align:center;padding:20px">Aucune session pour le moment. Fais ta première séance de dactylo !</p>'
+  }else{
+    historyH=s.slice(0,20).map((ss,i)=>`<div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px">
+      <span style="color:var(--text3);min-width:70px">${ss.date?new Date(ss.date).toLocaleDateString():'#'+(s.length-i)}</span>
+      <span style="font-weight:600;color:var(--accent);min-width:50px">${ss.wpm} WPM</span>
+      <span style="color:var(--text-correct);min-width:50px">${ss.accuracy}%</span>
+      <span style="color:var(--text3)">${ss.errors} err.</span>
+      <span style="color:var(--text3)">${ss.elapsed}s</span>
+      <span style="color:var(--text2)">${ss.mode||'libre'}</span>
+    </div>`).join('')
+  }
+  c.innerHTML=`<h2>Statistiques</h2><p class="dm-sub">Ta progression dans le temps</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:24px">
+      <div style="background:var(--card);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--border)"><div style="font-size:1.8rem;font-weight:800;color:var(--accent)">${avg}</div><div style="font-size:11px;color:var(--text3)">WPM Moyen</div></div>
+      <div style="background:var(--card);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--border)"><div style="font-size:1.8rem;font-weight:800;color:var(--accent)">${best}</div><div style="font-size:11px;color:var(--text3)">Meilleur WPM</div></div>
+      <div style="background:var(--card);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--border)"><div style="font-size:1.8rem;font-weight:800;color:var(--accent)">${avgAcc}%</div><div style="font-size:11px;color:var(--text3)">Précision moy.</div></div>
+      <div style="background:var(--card);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--border)"><div style="font-size:1.8rem;font-weight:800;color:var(--accent)">${s.length}</div><div style="font-size:11px;color:var(--text3)">Sessions</div></div>
+    </div>
+    <h3 style="font-size:14px;color:var(--fg);margin-bottom:8px">Historique des sessions</h3>
+    ${historyH}`
+}
+
+// SETTINGS
+function dashSettings(c,u){
+  const users=JSON.parse(localStorage.getItem('oth_users')||'[]');
+  const userIdx=users.findIndex(x=>x.id===u.id);
+  const user=userIdx>=0?users[userIdx]:u;
+  c.innerHTML=`<h2>Paramètres</h2><p class="dm-sub">Personnalise ton expérience</p>
+    <div class="settings-row">
+      <div><div class="sr-label">Thème</div><div class="sr-desc">Clair / Sombre</div></div>
+      <select id="setTheme" onchange="saveSetting('theme',this.value)" style="width:auto;min-width:100px">
+        <option value=""${(!user.theme||user.theme==='clair')?' selected':''}>Clair</option>
+        <option value="dark"${user.theme==='dark'?' selected':''}>Sombre</option>
+      </select>
+    </div>
+    <div class="settings-row">
+      <div><div class="sr-label">Langue des textes</div><div class="sr-desc">Français, Anglais ou Code</div></div>
+      <select id="setLang" onchange="saveSetting('language',this.value)" style="width:auto;min-width:120px">
+        <option value="francais"${(user.language||'francais')==='francais'?' selected':''}>Français</option>
+        <option value="anglais"${user.language==='anglais'?' selected':''}>English</option>
+        <option value="code"${user.language==='code'?' selected':''}>Code</option>
+      </select>
+    </div>
+    <div class="settings-row">
+      <div><div class="sr-label">Disposition clavier</div><div class="sr-desc">AZERTY ou QWERTY</div></div>
+      <select id="setKb" onchange="saveSetting('keyboardLayout',this.value)" style="width:auto;min-width:100px">
+        <option value="azerty"${(user.keyboardLayout||'azerty')==='azerty'?' selected':''}>AZERTY</option>
+        <option value="qwerty"${user.keyboardLayout==='qwerty'?' selected':''}>QWERTY</option>
+      </select>
+    </div>
+    <div style="margin-top:24px;padding:16px;background:var(--card);border-radius:10px;border:1px solid var(--border)">
+      <h3 style="font-size:14px;color:var(--fg);margin-bottom:8px">À propos</h3>
+      <p style="font-size:13px;color:var(--text3)">Othniel2TO v1.0 — Application de dactylographie créée par Othniel</p>
+    </div>`
+}
+
+function saveSetting(key,val){
+  const users=JSON.parse(localStorage.getItem('oth_users')||'[]');
+  const idx=users.findIndex(x=>x.id===currentUser.id);
+  if(idx<0)return;
+  users[idx][key]=val;
+  localStorage.setItem('oth_users',JSON.stringify(users));
+  currentUser=users[idx];
+  if(key==='theme'){document.body.classList.toggle('dark',val==='dark')}
+  document.getElementById('dashInfo').textContent=currentUser.language||'francais'
+}
+
+// PWA INSTALL
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();deferredPrompt=e;
+  const btn=document.createElement('button');
+  btn.className='btn btn-primary btn-sm';
+  btn.innerHTML='<svg class="icon" viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg> Installer l\'app';
+  Object.assign(btn.style,{position:'fixed',bottom:'80px',left:'50%',transform:'translateX(-50%)',zIndex:'9999'});
+  btn.onclick=()=>{deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>btn.remove())};
+  document.body.appendChild(btn);
+});
+
+// SERVICE WORKER
+if('serviceWorker'in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('service-worker.js')});
+
+// APPLY SAVED THEME
+(function(){const s=localStorage.getItem('oth_session');if(s){const users=JSON.parse(localStorage.getItem('oth_users')||'[]');const u=users.find(x=>x.id==s);if(u&&u.theme==='dark')document.body.classList.add('dark')}})();
+</script>
+</body>
+</html>
