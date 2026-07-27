@@ -3,10 +3,12 @@
   "short_name": "Othniel2TO",
   "description": "Application de dactylographie pour apprendre à taper plus vite",
   "start_url": "index.html",
+  "scope": ".",
   "display": "standalone",
-  "orientation": "portrait",
+  "display_override": ["window-controls-overlay", "standalone"],
   "background_color": "#1a1a2e",
   "theme_color": "#6c63ff",
+  "categories": ["education", "productivity"],
   "icons": [
     {
       "src": "icon.svg",
@@ -14,5 +16,7 @@
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
 }
