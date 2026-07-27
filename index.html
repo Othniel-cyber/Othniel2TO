@@ -104,17 +104,6 @@ label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(-
 .section-title{font-size:clamp(1.5rem,4vw,2rem);color:var(--accent);text-align:center;margin-bottom:6px;font-weight:800}
 .section-subtitle{color:var(--text2);text-align:center;margin-bottom:32px;font-size:14px}
 
-/* AUTH */
-.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 5% 40px;background:var(--bg)}
-.auth-box{background:var(--card);border-radius:20px;padding:40px;width:100%;max-width:450px;box-shadow:var(--shadow);border:1px solid var(--border)}
-.auth-box h2{font-size:1.6rem;color:var(--accent);text-align:center;margin-bottom:4px}
-.auth-box .ab-sub{color:var(--text2);text-align:center;margin-bottom:24px;font-size:14px}
-.auth-tabs{display:flex;margin-bottom:24px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
-.auth-tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-size:14px;font-weight:500;transition:all .3s;background:transparent;color:var(--text2);border:none}
-.auth-tab.active{background:var(--accent);color:#fff}
-.auth-form{display:none;animation:fadeIn .3s}
-.auth-form.active{display:block}
-
 /* DASHBOARD */
 .dash-layout{display:flex;min-height:100vh}
 .dash-side{width:230px;background:var(--card);padding:0;border-right:1px solid var(--border);flex-shrink:0;display:flex;flex-direction:column}
@@ -209,7 +198,6 @@ label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(-
   .dash-main{padding:20px 16px}
   .form-row{grid-template-columns:1fr}
   .section{padding:40px 5%}
-  .auth-box{padding:24px}
   .vkey{height:36px;min-width:30px;font-size:10px}
   .vkey.space{min-width:160px}
   .vkey.special{min-width:44px}
@@ -274,23 +262,9 @@ label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(-
 .flex-wrap{flex-wrap:wrap}
 .gap-8{gap:8px}
 .items-center{align-items:center}
-#loader-screen{position:fixed;inset:0;background:#1a1a2e;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transition:opacity .5s ease}
-.loader-content{text-align:center}
-.loader-name{font-size:2rem;font-weight:800;margin-bottom:20px;letter-spacing:2px;animation:pulse 2s infinite}
-.loader-bar-wrap{width:200px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
-.loader-bar-fill{height:100%;background:var(--accent);width:0%;transition:width .1s ease}
 </style>
 </head>
 <body>
-
-<div id="loader-screen">
-  <div class="loader-content">
-    <div class="loader-name">OTHNIEL YEAGER</div>
-    <div class="loader-bar-wrap">
-      <div class="loader-bar-fill" id="loader-fill"></div>
-    </div>
-  </div>
-</div>
 
 <nav class="navbar" id="navbar">
   <a href="#" class="logo" onclick="showPage('home')">Othniel2<span>TO</span></a>
@@ -331,7 +305,7 @@ label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(-
         <li><a onclick="showDash('certificate')" id="m-certificate"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg> Attestation</a></li>
         <li><a onclick="showDash('stats')" id="m-stats"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg> Statistiques</a></li>
         <li><a onclick="showDash('settings')" id="m-settings"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg> Paramètres</a></li>
-        <li><a onclick="location.reload()" style="color:var(--text3)"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Retour Home</a></li>
+        <li><a onclick="logoutUser()" style="color:var(--text3)"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Retour Home</a></li>
       </ul>
     </div>
     <div class="dash-main" id="dashContent"></div>
@@ -339,27 +313,6 @@ label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(-
 </div>
 
 <script>
-// LOADER
-(function(){
-  const fill=document.getElementById('loader-fill');
-  let pct=0;
-  const interval=setInterval(()=>{
-    pct+=Math.random()*8+2;
-    if(pct>=100){pct=100;clearInterval(interval)}
-    fill.style.width=pct+'%'
-  },120);
-  window.addEventListener('load',()=>{
-    setTimeout(()=>{
-      clearInterval(interval);
-      fill.style.width='100%';
-      setTimeout(()=>{
-        const ls=document.getElementById('loader-screen');
-        if(ls){ls.style.opacity='0';setTimeout(()=>{ls.style.display='none'},500)}
-      },400)
-    },600)
-  })
-})();
-
 const LESSONS = [
   {id:1,name:"Rangée de base",keys:"asdfjkl;",desc:"ASDF JKL; — la position de repos",diff:"debutant"},
   {id:2,name:"Rangée supérieure",keys:"qwertyuiop",desc:"QWERT YUIOP — la rangée du haut",diff:"debutant"},
@@ -466,13 +419,6 @@ function showPage(id){
   el.classList.add('active');window.scrollTo(0,0)
 }
 
-function switchAuth(tab,btn){
-  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.auth-form').forEach(f=>f.classList.remove('active'));
-  document.getElementById(tab==='login'?'loginForm':'registerForm').classList.add('active')
-}
-
 // AUTH REMOVED
 
 function enterDashboard(user){
@@ -486,7 +432,12 @@ function enterDashboard(user){
 }
 
 function logoutUser(){
-  location.reload();
+  currentUser=null;
+  localStorage.removeItem('oth_guest_user');
+  localStorage.removeItem('oth_progress_guest');
+  document.getElementById('navbar').style.display='flex';
+  typingEngine=null;
+  showPage('home')
 }
 
 (function(){const guest=localStorage.getItem('oth_guest_user');if(guest){currentUser=JSON.parse(guest);enterDashboard(currentUser)}})();
@@ -667,7 +618,6 @@ function finishTyping(eng){
   eng.finished=true;eng.isRunning=false;
   const wpm=calcWpm(eng);const acc=calcAcc(eng);
   const elapsed=Math.round((Date.now()-eng.startTime)/1000);
-  const elapsedMin=elapsed/60;
   const grade=getGrade(wpm);
   const results={wpm,accuracy:acc,elapsed,errors:eng.errors,typed:eng.typed,correct:eng.correct,keystrokes:eng.keystrokes,targetLength:eng.text.length,grade:grade};
   if(currentUser){addSession(currentUser.id,{...results,date:new Date().toISOString(),mode:'libre'})}
