@@ -258,7 +258,7 @@ input[type="date"]{appearance:auto;-webkit-appearance:auto}
 <nav class="navbar" id="navbar">
   <a href="#" class="logo" onclick="showPage('home')">Othniel2<span>TO</span></a>
   <div class="nav-right" id="navRight">
-    <button class="nav-link primary" id="btnStartNav">Commencer</button>
+    <button class="nav-link primary" id="btnStartNav" onclick="enterGuestMode()">Commencer</button>
   </div>
 </nav>
 
@@ -270,7 +270,7 @@ input[type="date"]{appearance:auto;-webkit-appearance:auto}
       <p class="subtitle">Deviens un expert du <strong>clavier</strong></p>
       <p>Entraîne-toi avec des leçons progressives, suis ta progression et deviens plus rapide chaque jour.</p>
       <div class="flex flex-wrap gap-8" style="justify-content:center">
-        <button class="btn btn-primary" id="btnStartHero">Commencer</button>
+        <button class="btn btn-primary" id="btnStartHero" onclick="enterGuestMode()">Commencer</button>
         <button class="btn btn-outline" id="installBtn" style="display:none" onclick="installApp()">📲 Installer Othniel2TO</button>
       </div>
     </div>
@@ -404,8 +404,6 @@ function enterGuestMode(){
     alert('Erreur: ' + e.message);
   }
 }
-document.getElementById('btnStartNav').addEventListener('click',enterGuestMode);
-document.getElementById('btnStartHero').addEventListener('click',enterGuestMode);
 
 // PAGES
 function showPage(id){
