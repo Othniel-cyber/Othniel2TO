@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -37,6 +37,9 @@
   --text-future:#888;
   --shadow:0 4px 24px rgba(0,0,0,.06);
   --shadow-h:0 8px 32px rgba(0,0,0,.1);
+  --gold:#c9a84c;
+  --ivory:#faf6f0;
+  --dark-text:#2c2c2c;
 }
 .dark{
   --bg:#1a1a2e;
@@ -105,7 +108,7 @@ label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(-
 .section-subtitle{color:var(--text2);text-align:center;margin-bottom:32px;font-size:14px}
 
 /* DASHBOARD */
-.dash-layout{display:flex;min-height:100vh}
+.dash-layout{display:flex;height:100vh;overflow:hidden}
 .dash-side{width:230px;background:var(--card);padding:0;border-right:1px solid var(--border);flex-shrink:0;display:flex;flex-direction:column}
 .dash-user{padding:20px;text-align:center;border-bottom:1px solid var(--border)}
 .dash-avatar{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;background:var(--accent);color:#fff;font-size:1.4rem;font-weight:700}
@@ -215,44 +218,29 @@ label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(-
   .vkey.special{min-width:36px}
   .vkey.wide{min-width:36px}
 }
-.certificate{max-width:800px;margin:0 auto;background:#fff;border:4px solid var(--accent);border-radius:16px;padding:40px;text-align:center;position:relative;font-family:'Inter',sans-serif;color:#1a1a1a}
-.certificate.dark-cert{background:#1a1a2e;color:#eaeaea;border-color:#6c63ff}
-.certificate .cert-logo{font-size:2rem;font-weight:800;color:#6c63ff;margin-bottom:4px}
-.certificate .cert-title{font-size:1.6rem;font-weight:700;color:#1a1a1a;margin:8px 0;text-transform:uppercase;letter-spacing:2px}
-.certificate.dark-cert .cert-title{color:#eaeaea}
-.certificate .cert-subtitle{font-size:14px;color:#666;margin-bottom:20px}
-.certificate .cert-seal{width:80px;height:80px;border-radius:50%;background:#6c63ff;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#fff;font-size:2rem;font-weight:700}
-.certificate .cert-photo{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #6c63ff;margin:0 auto 12px;display:block;background:#f0f0f0}
-.certificate .cert-photo-placeholder{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;background:#f0f0f0;border:2px dashed #ccc;cursor:pointer;color:#999;font-size:12px}
-.certificate .cert-name{font-size:1.5rem;font-weight:700;color:#1a1a1a;margin:8px 0}
-.certificate.dark-cert .cert-name{color:#eaeaea}
-.certificate .cert-info{font-size:13px;color:#666;margin:4px 0}
-.certificate .cert-bar{height:3px;background:linear-gradient(90deg,#6c63ff,#4a90d9);margin:20px auto;max-width:300px;border-radius:2px}
-.certificate .cert-signatures{display:flex;justify-content:space-around;margin-top:24px;flex-wrap:wrap;gap:16px}
-.certificate .cert-signature{text-align:center;min-width:140px}
-.certificate .cert-signature .sig-line{width:140px;height:1px;background:#999;margin:0 auto 6px}
-.certificate .cert-signature .sig-name{font-size:13px;font-weight:600;color:#1a1a1a}
-.certificate.dark-cert .cert-signature .sig-name{color:#eaeaea}
-.certificate .cert-signature .sig-title{font-size:11px;color:#888}
-.certificate-wrap{max-width:800px;margin:0 auto;background:var(--card);border:2px solid var(--accent);border-radius:16px;padding:40px;position:relative;overflow:hidden}
-.certificate-wrap::before{content:'';position:absolute;inset:8px;border:2px solid var(--accent);border-radius:12px;pointer-events:none;opacity:.3}
-.certificate-wrap .cw-header{text-align:center;border-bottom:2px solid var(--accent);padding-bottom:16px;margin-bottom:20px}
-.certificate-wrap .cw-header h2{font-size:1.8rem;color:var(--accent);margin:0}
-.certificate-wrap .cw-header p{color:var(--text2);font-size:13px}
-.certificate-wrap .cw-body{display:flex;gap:24px;align-items:start}
-.certificate-wrap .cw-photo{width:120px;height:140px;border:2px dashed var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;background:var(--card2);cursor:pointer;position:relative}
+.certificate-wrap{max-width:800px;margin:0 auto;background:var(--ivory);border:3px solid var(--gold);border-radius:16px;padding:48px;position:relative;overflow:hidden;box-shadow:0 8px 48px rgba(201,168,76,.15),0 2px 8px rgba(0,0,0,.08);font-family:'Inter',sans-serif;color:var(--dark-text)}
+.certificate-wrap::before{content:'';position:absolute;inset:10px;border:2px solid var(--gold);border-radius:12px;pointer-events:none;opacity:.5}
+.certificate-wrap::after{content:'✦ ✦ ✦';position:absolute;top:16px;right:24px;font-size:12px;letter-spacing:6px;color:var(--gold);opacity:.4;pointer-events:none}
+.certificate-wrap .cw-header{text-align:center;border-bottom:2px solid var(--gold);padding-bottom:20px;margin-bottom:24px;position:relative}
+.certificate-wrap .cw-header h2{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:800;color:var(--gold);margin:0;letter-spacing:1px}
+.certificate-wrap .cw-header .cw-badge{display:inline-block;background:var(--gold);color:#fff;font-size:10px;font-weight:700;padding:3px 16px;border-radius:20px;text-transform:uppercase;letter-spacing:2px;margin-top:8px}
+.certificate-wrap .cw-header p{color:#888;font-size:13px;margin-top:4px}
+.certificate-wrap .cw-body{display:flex;gap:28px;align-items:start}
+.certificate-wrap .cw-photo{width:130px;height:150px;border:3px solid var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;background:var(--card2);position:relative;box-shadow:0 2px 12px rgba(201,168,76,.2)}
 .certificate-wrap .cw-photo img{width:100%;height:100%;object-fit:cover}
-.certificate-wrap .cw-photo .placeholder{font-size:11px;color:var(--text3);text-align:center;padding:8px}
-.certificate-wrap .cw-photo input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.certificate-wrap .cw-photo .placeholder{font-size:2.5rem;color:var(--text3);text-align:center}
 .certificate-wrap .cw-info{flex:1}
 .certificate-wrap .cw-info .field{margin-bottom:10px}
-.certificate-wrap .cw-info .field label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px}
-.certificate-wrap .cw-info .field .val{font-size:15px;font-weight:600;color:var(--fg);padding:6px 0;border-bottom:1px solid var(--border)}
-.certificate-wrap .cw-footer{display:flex;justify-content:space-between;margin-top:24px;padding-top:16px;border-top:2px solid var(--accent)}
-.certificate-wrap .cw-footer .signature{text-align:center}
-.certificate-wrap .cw-footer .signature .sig-line{width:140px;height:1px;background:var(--border);margin:4px auto}
-.certificate-wrap .cw-footer .signature .sig-name{font-size:12px;font-weight:600;color:var(--fg)}
-.certificate-wrap .cw-footer .signature .sig-title{font-size:10px;color:var(--text3)}
+.certificate-wrap .cw-info .field label{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.certificate-wrap .cw-info .field .val{font-size:15px;font-weight:600;color:var(--dark-text);padding:6px 0;border-bottom:1px solid #e8dcc8}
+.certificate-wrap .cw-seal{text-align:center;margin:24px 0 12px}
+.certificate-wrap .cw-seal .seal-circle{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b8922e);display:flex;align-items:center;justify-content:center;margin:0 auto;color:#fff;font-size:1.2rem;font-weight:800;box-shadow:0 2px 12px rgba(201,168,76,.3)}
+.certificate-wrap .cw-footer{display:flex;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:2px solid var(--gold);position:relative}
+.certificate-wrap .cw-footer .signature{text-align:center;min-width:160px}
+.certificate-wrap .cw-footer .signature .sig-line{width:160px;height:2px;background:var(--gold);margin:4px auto}
+.certificate-wrap .cw-footer .signature .sig-name{font-size:13px;font-weight:700;color:var(--dark-text);font-family:'Playfair Display',serif}
+.certificate-wrap .cw-footer .signature .sig-title{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px}
+.certificate-wrap .cw-number{text-align:center;margin-top:16px;font-size:11px;color:var(--text3);letter-spacing:2px}
 .d-none{display:none!important}
 .text-center{text-align:center}
 .mt-8{margin-top:8px}
@@ -262,6 +250,7 @@ label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(-
 .flex-wrap{flex-wrap:wrap}
 .gap-8{gap:8px}
 .items-center{align-items:center}
+input[type="date"]{appearance:auto;-webkit-appearance:auto}
 </style>
 </head>
 <body>
@@ -269,7 +258,7 @@ label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(-
 <nav class="navbar" id="navbar">
   <a href="#" class="logo" onclick="showPage('home')">Othniel2<span>TO</span></a>
   <div class="nav-right" id="navRight">
-    <button class="nav-link primary" onclick="enterGuestMode()">Commencer</button>
+    <button class="nav-link primary" id="btnStartNav">Commencer</button>
   </div>
 </nav>
 
@@ -281,7 +270,7 @@ label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(-
       <p class="subtitle">Deviens un expert du <strong>clavier</strong></p>
       <p>Entraîne-toi avec des leçons progressives, suis ta progression et deviens plus rapide chaque jour.</p>
       <div class="flex flex-wrap gap-8" style="justify-content:center">
-        <button class="btn btn-primary" onclick="enterGuestMode()">Commencer</button>
+        <button class="btn btn-primary" id="btnStartHero">Commencer</button>
         <button class="btn btn-outline" id="installBtn" style="display:none" onclick="installApp()">📲 Installer Othniel2TO</button>
       </div>
     </div>
@@ -398,19 +387,25 @@ let currentUser=null;
 let typingEngine=null;
 let currentLessonId=null;
 let currentExamId=null;
-let deferredPrompt=null;
 
 // AUTH BYPASS
 function enterGuestMode(){
-  let guest = JSON.parse(localStorage.getItem('oth_guest_user'));
-  if(!guest){
-    guest = {id:'guest',username:'Invité',displayName:'Invité',theme:'',language:'francais',keyboardLayout:'azerty',createdAt:new Date().toISOString()};
-    localStorage.setItem('oth_guest_user', JSON.stringify(guest));
-    localStorage.setItem('oth_progress_guest', JSON.stringify({lessons:{1:{unlocked:true}},examPassed:false,examProgress:{}}));
+  try {
+    const raw = localStorage.getItem('oth_guest_user');
+    let guest = raw ? JSON.parse(raw) : null;
+    if(!guest){
+      guest = {id:'guest',username:'Invité',displayName:'Invité',theme:'',language:'francais',keyboardLayout:'azerty',createdAt:new Date().toISOString()};
+      localStorage.setItem('oth_guest_user', JSON.stringify(guest));
+      localStorage.setItem('oth_progress_guest', JSON.stringify({lessons:{1:{unlocked:true}},examPassed:false,examProgress:{}}));
+    }
+    currentUser = guest;
+    enterDashboard(guest);
+  } catch(e) {
+    alert('Erreur: ' + e.message);
   }
-  currentUser = guest;
-  enterDashboard(guest);
 }
+document.getElementById('btnStartNav').addEventListener('click',enterGuestMode);
+document.getElementById('btnStartHero').addEventListener('click',enterGuestMode);
 
 // PAGES
 function showPage(id){
@@ -439,8 +434,6 @@ function logoutUser(){
   typingEngine=null;
   showPage('home')
 }
-
-(function(){const guest=localStorage.getItem('oth_guest_user');if(guest){currentUser=JSON.parse(guest);enterDashboard(currentUser)}})();
 
 function getGrade(wpm){
   if(wpm>=90)return"Légende";if(wpm>=75)return"Expert";if(wpm>=60)return"Avancé";
@@ -773,96 +766,143 @@ function startExam(id){
 }
 
 // CERTIFICATE
+function getCertData(userId){
+  try{return JSON.parse(localStorage.getItem('oth_cert_data_'+userId)||'null')}catch(e){return null}
+}
+function setCertData(userId,data){
+  localStorage.setItem('oth_cert_data_'+userId,JSON.stringify(data))
+}
+
 function dashCertificate(c,u){
   const prog=getProgress(u.id);
   if(!prog.examPassed){c.innerHTML=`<h2>Attestation</h2><p class="dm-sub">Termine les 5 épreuves d'examen pour obtenir ton attestation</p><div style="text-align:center;padding:40px;color:var(--text3)"><p style="font-size:2rem;margin-bottom:12px">📜</p><p>Tu dois réussir les 5 exercices de l'examen avec au moins 80% de précision.</p><button class="btn btn-primary mt-16" onclick="showDash('exam')">Aller à l'examen</button></div>`;return}
+  const cert=getCertData(u.id);
+  if(!cert){
+    c.innerHTML=`<h2>Attestation de réussite</h2><p class="dm-sub">Remplis tes informations pour générer ton attestation</p>
+      <div style="max-width:500px;margin:0 auto;background:var(--card);border-radius:14px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow)">
+        <form onsubmit="submitCertInfo(event)">
+          <div class="form-row">
+            <div class="form-group"><label>Nom</label><input type="text" id="certNom" required placeholder="Ton nom de famille"></div>
+            <div class="form-group"><label>Prénom</label><input type="text" id="certPrenom" required placeholder="Ton prénom"></div>
+          </div>
+          <div class="form-group"><label>Date de naissance</label><input type="date" id="certBirth" required></div>
+          <div class="form-group"><label>Photo d'identité</label><input type="file" accept="image/*" id="certPhotoInputForm" onchange="handleCertPhotoForm(event)"></div>
+          <div id="certPhotoPreview" style="display:none;text-align:center;margin-bottom:12px"><img id="certPhotoPreviewImg" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--accent)"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%">Générer mon attestation</button>
+        </form>
+      </div>`;
+    return
+  }
+  const photo=localStorage.getItem('oth_cert_photo_'+u.id)||'';
   c.innerHTML=`<h2>Attestation de réussite</h2><p class="dm-sub">Félicitations ! Tu as réussi l'examen de dactylographie</p>
     <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="saveCertificate()">💾 Enregistrer l'attestation</button>
-      <button class="btn btn-secondary" onclick="resetCertPhoto()">Réinitialiser la photo</button>
+      <button class="btn btn-primary" onclick="saveCertificate()">💾 Télécharger l'attestation</button>
+      <button class="btn btn-secondary" onclick="resetCertInfo()">Modifier mes infos</button>
     </div>
     <div id="certContainer" class="certificate-wrap">
       <div class="cw-header">
-        <h2>CodeLux</h2>
-        <p>Attestation de réussite en dactylographie</p>
-        <div style="width:60px;height:3px;background:var(--accent);margin:8px auto;border-radius:2px"></div>
+        <h2>✦ CodeLux ✦</h2>
+        <div class="cw-badge">Certificat de Réussite</div>
+        <p>Attestation de dactylographie</p>
+        <div style="width:80px;height:2px;background:var(--gold);margin:8px auto;border-radius:2px"></div>
       </div>
       <div class="cw-body">
-        <div class="cw-photo" id="certPhotoArea">
-          <img id="certPhotoImg" style="display:none" alt="Photo">
-          <div class="placeholder" id="certPhotoPlaceholder">
-            <svg width="32" height="32" fill="#999" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            <span>Ajouter une photo</span>
-          </div>
-          <input type="file" accept="image/*" id="certPhotoInput" onchange="handleCertPhoto(event)">
+        <div class="cw-photo" style="border-style:solid;cursor:default">
+          ${photo?`<img src="${photo}" style="width:100%;height:100%;object-fit:cover">`:`<div class="placeholder">👤</div>`}
         </div>
         <div class="cw-info">
-          <div class="field"><label>Nom & Prénom</label><div class="val" id="certDisplayName">${u.displayName||u.username}</div></div>
-          <div class="field"><label>Email</label><div class="val" id="certDisplayEmail">${u.email||u.username+'@email.com'}</div></div>
-          <div class="field"><label>Date d'obtention</label><div class="val">${new Date().toLocaleDateString('fr-FR')}</div></div>
+          <div class="field"><label>Nom & Prénom</label><div class="val">${cert.nom} ${cert.prenom}</div></div>
+          <div class="field"><label>Date de naissance</label><div class="val">${new Date(cert.birth).toLocaleDateString('fr-FR')}</div></div>
+          <div class="field"><label>Date d'obtention</label><div class="val">${new Date(cert.obtention||Date.now()).toLocaleDateString('fr-FR')}</div></div>
           <div class="field"><label>Grade</label><div class="val">${getGrade(getAvgWpm(u.id))} — ${getAvgWpm(u.id)} WPM</div></div>
         </div>
+      </div>
+      <div class="cw-seal">
+        <div class="seal-circle">O2</div>
       </div>
       <div class="cw-footer">
         <div class="signature">
           <div class="sig-line"></div>
           <div class="sig-name">Othniel T.</div>
-          <div class="sig-title">Fondateur - CodeLux</div>
+          <div class="sig-title">Fondateur</div>
         </div>
         <div class="signature">
           <div class="sig-line"></div>
           <div class="sig-name">Anège-Aurel A.</div>
-          <div class="sig-title">Co-fondateur - CodeLux</div>
+          <div class="sig-title">Co-fondateur</div>
         </div>
       </div>
-    </div>`;
-  const saved=localStorage.getItem('oth_cert_photo_'+u.id);
-  if(saved){document.getElementById('certPhotoImg').src=saved;document.getElementById('certPhotoImg').style.display='block';document.getElementById('certPhotoPlaceholder').style.display='none'}
+      <div class="cw-number">Certificat N° OTH-${new Date(cert.obtention||Date.now()).getFullYear()}-${String(u.id).slice(-4).padStart(4,'0')}</div>
+    </div>`
 }
 
-function handleCertPhoto(e){
+function submitCertInfo(e){
+  e.preventDefault();
+  if(!currentUser)return;
+  const nom=document.getElementById('certNom').value.trim();
+  const prenom=document.getElementById('certPrenom').value.trim();
+  const birth=document.getElementById('certBirth').value;
+  if(!nom||!prenom||!birth){alert('Tous les champs sont requis');return}
+  setCertData(currentUser.id,{nom,prenom,birth,obtention:new Date().toISOString()});
+  const fileInp=document.getElementById('certPhotoInputForm');
+  if(fileInp&&fileInp.files&&fileInp.files[0]){
+    const reader=new FileReader();
+    reader.onload=function(ev){
+      localStorage.setItem('oth_cert_photo_'+currentUser.id,ev.target.result);
+      showDash('certificate')
+    };
+    reader.readAsDataURL(fileInp.files[0])
+  }else{
+    showDash('certificate')
+  }
+}
+
+function handleCertPhotoForm(e){
   const file=e.target.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=function(ev){
-    const data=ev.target.result;
-    document.getElementById('certPhotoImg').src=data;
-    document.getElementById('certPhotoImg').style.display='block';
-    document.getElementById('certPhotoPlaceholder').style.display='none';
-    if(currentUser)localStorage.setItem('oth_cert_photo_'+currentUser.id,data)
+    const preview=document.getElementById('certPhotoPreview');
+    const img=document.getElementById('certPhotoPreviewImg');
+    img.src=ev.target.result;
+    preview.style.display='block'
   };
   reader.readAsDataURL(file)
 }
 
-function resetCertPhoto(){
-  if(currentUser)localStorage.removeItem('oth_cert_photo_'+currentUser.id);
-  const img=document.getElementById('certPhotoImg');if(img){img.style.display='none'}
-  const ph=document.getElementById('certPhotoPlaceholder');if(ph)ph.style.display='flex';
-  const inp=document.getElementById('certPhotoInput');if(inp)inp.value=''
+function resetCertInfo(){
+  if(currentUser){
+    localStorage.removeItem('oth_cert_data_'+currentUser.id);
+    localStorage.removeItem('oth_cert_photo_'+currentUser.id)
+  }
+  showDash('certificate')
 }
 
 function saveCertificate(){
   const container=document.getElementById('certContainer');
   if(!container)return;
-  const name=(document.getElementById('certDisplayName')||{}).textContent||'Etudiant';
-  const email=(document.getElementById('certDisplayEmail')||{}).textContent||'';
+  const nom=(document.querySelector('#certContainer .cw-info .field:first-child .val')||{}).textContent||'Etudiant';
+  const btn=document.querySelector('#dashContent .btn-primary');
+  if(btn){btn.textContent='⏳ Génération...';btn.disabled=true}
   const clone=container.cloneNode(true);
   clone.style.position='fixed';clone.style.top='-9999px';clone.style.left='-9999px';
   clone.style.width='800px';clone.style.zIndex='-1';
   document.body.appendChild(clone);
-  const btn=clone.querySelector('.btn');if(btn)btn.style.display='none';
+  const btns=clone.querySelectorAll('.btn');btns.forEach(b=>b.style.display='none');
   const fileInp=clone.querySelector('input[type="file"]');if(fileInp)fileInp.style.display='none';
   const ph=clone.querySelector('.placeholder');if(ph)ph.style.display='none';
   const img=clone.querySelector('img');
   if(img&&!img.src){img.style.display='none'}
-  html2canvas(clone,{scale:2,useCORS:true,backgroundColor:'#fff',allowTaint:false}).then(canvas=>{
+  html2canvas(clone,{scale:2,useCORS:true,backgroundColor:'#faf6f0',allowTaint:false}).then(canvas=>{
     const link=document.createElement('a');
-    link.download='Attestation_CodeLux_'+name.replace(/\s/g,'_')+'.png';
+    link.download='Attestation_CodeLux_'+nom.replace(/\s/g,'_')+'.png';
     link.href=canvas.toDataURL('image/png');
     link.click();
-    document.body.removeChild(clone)
+    document.body.removeChild(clone);
+    if(btn){btn.textContent='💾 Télécharger l\'attestation';btn.disabled=false}
   }).catch(()=>{
     document.body.removeChild(clone);
-    alert("Erreur lors de la génération. Essaie avec un navigateur récent.")
+    if(btn){btn.textContent='💾 Télécharger l\'attestation';btn.disabled=false}
+    alert("Erreur lors de la génération de l'image. Essaie avec un navigateur récent.")
   })
 }
 
@@ -933,11 +973,11 @@ function saveSetting(key,val){
   currentUser[key]=val;
   localStorage.setItem('oth_guest_user',JSON.stringify(currentUser));
   if(key==='theme'){document.body.classList.toggle('dark',val==='dark')}
-  document.getElementById('dashInfo').textContent=currentUser.language||'francais'
 }
 
 // PWA INSTALL
 let deferredPrompt=null;
+try {
 if(window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true){
   document.getElementById('installBtn').style.display='none'
 }else{
@@ -953,6 +993,7 @@ if(window.matchMedia('(display-mode: standalone)').matches||window.navigator.sta
     if(btn)btn.style.display='none'
   })
 }
+} catch(e){}
 function installApp(){
   if(!deferredPrompt)return;
   deferredPrompt.prompt();
@@ -966,7 +1007,7 @@ function installApp(){
 if('serviceWorker'in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('service-worker.js')});
 
 // APPLY SAVED THEME
-(function(){const guest=localStorage.getItem('oth_guest_user');if(guest){const u=JSON.parse(guest);if(u.theme==='dark')document.body.classList.add('dark')}})();
+(function(){try{const guest=localStorage.getItem('oth_guest_user');if(guest){const u=JSON.parse(guest);if(u.theme==='dark')document.body.classList.add('dark')}}catch(e){}})();
 </script>
 </body>
 </html>
